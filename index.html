@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LogicPC Expert - Sistema Especialista de Diagnóstico</title>
+  <meta name="description" content="Sistema especialista baseado em regras IF-THEN para diagnóstico inteligente de problemas em computadores."/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- Fundo animado de grid tecnológico -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <header class="topbar">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="12" rx="2"/>
+          <path d="M8 20h8M12 16v4"/>
+          <circle cx="12" cy="10" r="2"/>
+        </svg>
+      </div>
+      <div>
+        <h1>LogicPC <span>Expert</span></h1>
+        <p class="subtitle">Sistema Especialista · Inteligência baseada em Regras Lógicas</p>
+      </div>
+    </div>
+    <div class="status-pill">
+      <span class="dot"></span> Núcleo Lógico Online
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ========================= TELA INICIAL ========================= -->
+    <section id="tela-inicial" class="panel active">
+      <div class="hero">
+        <div class="hero-badge">⚡ Sistema baseado em Lógica Matemática</div>
+        <h2 class="hero-title">Diagnóstico Inteligente<br/><span class="grad">de Computadores</span></h2>
+        <p class="hero-desc">
+          O <b>LogicPC Expert</b> simula um técnico especialista utilizando
+          <b>proposições lógicas</b>, <b>operadores AND/OR</b> e <b>regras IF-THEN</b>
+          para identificar falhas de hardware e software de forma automática.
+        </p>
+
+        <div class="hero-cards">
+          <div class="mini-card"><div class="mc-ic">🧠</div><h4>Inferência Lógica</h4><p>Motor baseado em regras de produção.</p></div>
+          <div class="mini-card"><div class="mc-ic">⚙️</div><h4>Regras IF-THEN</h4><p>Conhecimento técnico formalizado.</p></div>
+          <div class="mini-card"><div class="mc-ic">📊</div><h4>Nível de Confiança</h4><p>Cálculo probabilístico da hipótese.</p></div>
+        </div>
+
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="iniciarDiagnostico()">
+            ▶ Iniciar Diagnóstico
+          </button>
+          <button class="btn-ghost" onclick="mostrarSecao('tela-logica')">
+            📐 Ver Lógica Matemática
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= TELA PERGUNTAS ========================= -->
+    <section id="tela-perguntas" class="panel">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="tag">Etapa <b id="etapa-atual">1</b>/<b id="etapa-total">10</b></span>
+            <h3 id="titulo-pergunta">Carregando pergunta...</h3>
+          </div>
+          <div class="ai-typing">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="progress">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <p class="pergunta-texto" id="texto-pergunta">—</p>
+
+        <div class="answers">
+          <button class="btn-yes" onclick="responder(true)">✔ SIM</button>
+          <button class="btn-no"  onclick="responder(false)">✘ NÃO</button>
+        </div>
+
+        <div class="historico">
+          <h4>📋 Histórico de Respostas</h4>
+          <ul id="lista-historico"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= TELA LOADING ========================= -->
+    <section id="tela-loading" class="panel">
+      <div class="loader-wrap">
+        <div class="loader-ring"></div>
+        <h3 class="loader-title">Processando Regras Lógicas...</h3>
+        <p class="loader-sub" id="loader-msg">Aplicando inferência IF-THEN</p>
+      </div>
+    </section>
+
+    <!-- ========================= TELA RESULTADO ========================= -->
+    <section id="tela-resultado" class="panel">
+      <div class="card result-card">
+        <div class="result-head">
+          <div class="result-ic">🩺</div>
+          <div>
+            <span class="tag">Diagnóstico Final</span>
+            <h3 id="diagnostico-titulo">—</h3>
+          </div>
+          <div class="confianca">
+            <div class="conf-circle">
+              <span id="conf-num">0</span><small>%</small>
+            </div>
+            <p>Confiança</p>
+          </div>
+        </div>
+
+        <div class="result-grid">
+          <div class="result-block">
+            <h4>🔍 Explicação Técnica</h4>
+            <p id="diagnostico-explicacao">—</p>
+          </div>
+          <div class="result-block">
+            <h4>🛠️ Solução Sugerida</h4>
+            <p id="diagnostico-solucao">—</p>
+          </div>
+          <div class="result-block full">
+            <h4>📐 Regras Lógicas Aplicadas</h4>
+            <pre id="regras-aplicadas" class="code"></pre>
+          </div>
+          <div class="result-block full">
+            <h4>🧮 Inferência Matemática</h4>
+            <pre id="inferencia-logica" class="code"></pre>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="btn-primary" onclick="reiniciar()">🔁 Novo Diagnóstico</button>
+          <button class="btn-ghost" onclick="mostrarSecao('tela-logica')">📐 Ver Lógica</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= TELA LÓGICA MATEMÁTICA ========================= -->
+    <section id="tela-logica" class="panel">
+      <div class="card">
+        <span class="tag">Fundamentos</span>
+        <h3>Lógica Matemática Aplicada ao Sistema</h3>
+        <p class="muted">Como o LogicPC Expert representa conhecimento técnico como fórmulas lógicas.</p>
+
+        <div class="logic-grid">
+          <div class="logic-card">
+            <h4>① Proposições</h4>
+            <p>Cada pergunta é uma <b>proposição lógica</b> que pode ser verdadeira (V) ou falsa (F).</p>
+            <pre class="code">p = "o computador liga"
+q = "a fonte faz barulho"
+r = "existe tela azul"</pre>
+          </div>
+
+          <div class="logic-card">
+            <h4>② Operadores</h4>
+            <p>O sistema utiliza <b>AND (∧)</b> e <b>OR (∨)</b> para combinar proposições.</p>
+            <pre class="code">¬p ∧ ¬q   → não liga E sem barulho
+p ∧ ¬imagem → liga E sem imagem
+aquece ∧ desliga → AND lógico</pre>
+          </div>
+
+          <div class="logic-card">
+            <h4>③ Regras IF-THEN</h4>
+            <p>O conhecimento é representado como <b>regras de produção</b>.</p>
+            <pre class="code">IF ¬liga ∧ ¬barulhoFonte
+THEN problema = Fonte
+
+IF aquece ∧ desligaSozinho
+THEN problema = Superaquecimento</pre>
+          </div>
+
+          <div class="logic-card">
+            <h4>④ Inferência</h4>
+            <p>O motor avalia cada regra e <b>deduz</b> a hipótese mais provável.</p>
+            <pre class="code">Fatos: { ¬liga, ¬barulho }
+Regra: ¬liga ∧ ¬barulho → Fonte
+∴ Conclusão = "Fonte de alimentação"</pre>
+          </div>
+        </div>
+
+        <div class="hero-actions" style="margin-top:24px">
+          <button class="btn-primary" onclick="mostrarSecao('tela-inicial')">⬅ Voltar</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>LogicPC Expert · Projeto Acadêmico · Programação em Lógica & Sistemas Especialistas</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
